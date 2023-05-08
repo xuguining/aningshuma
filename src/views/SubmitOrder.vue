@@ -1,3 +1,4 @@
+<!-- 已修改 -->
 <template>
   <div class="address">
     <!-- 提交订单的头部 -->
@@ -23,7 +24,7 @@
       <div class="title">提交订单页</div>
     </div>
     <!-- 地址选择开始 -->
-    <div class="order_address">
+    <div class="order_address" v-if="!this.list">
       <div class="select" @click="show=true" v-if="mylist==''">
         暂无地址信息
         <span><van-icon name="arrow" /></span>
@@ -36,7 +37,7 @@
             <van-tag round type="primary">默认</van-tag>
           </div> -->
         </div>
-        <div class="my_address">{{province}} {{myaddressDetail}}</div>
+        <div class="my_address">{{province}} {{myaddress}}</div>
         <span><van-icon name="arrow" class="bottom_arrow" /></span>
       </div>
     </div>
@@ -60,7 +61,7 @@
       </div>
     </div>
 
-    <div class="body">
+    <div class="body" v-if="!this.list">
       <!-- 订单商品开始 -->
       <div class="main_body" v-for="(item, index) in list" :key="index">
         <div class="product_box">
@@ -68,21 +69,23 @@
           <div class="text_box">
             <h2 class="name">{{ item.inname }}</h2>
             <div class="sevenDay">7天保价7天无理由退货</div>
-            <div class="price">¥{{ item.myprice }}</div>
+            <div class="price">¥{{ item.myprice }}
+              <span class="shopcount">x{{ list[index].numbers }}</span>
+            </div>
           </div>
         </div>
       </div>
       <!-- 订单商品结束 -->
     </div>
     <!-- 提交开始 -->
-    <div class="footer">
+    <div class="footer" v-if="!this.list">
       <van-submit-bar
         :price="total"
         button-text="提交订单"
         @submit="onSubmit"
-        
       />
     </div>
+    <span v-if="this.list" class="nosubmit">请提交订单</span>
   </div>
 </template>
 
@@ -117,7 +120,7 @@ export default {
       mylist: [],//地址数据列表
       myname:'',//地址最后一项的名字
       myphone:'',//地址最后一项的电话
-      myaddressDetail:'',//地址最后一项的详细地址
+      myaddress:'',//地址最后一项的详细地址
       province:'',//地址最后一项的省
       addressdata:[],//地址数据
       city:'',//地址最后一项的市
@@ -148,7 +151,7 @@ export default {
         this.chosenAddressId=index;
         this.myname = adobj[index].myname
         this.myphone = adobj[index].tel
-        this.myaddressDetail = adobj[index].addressDetail
+        this.myaddress = adobj[index].address
         this.province = adobj[index].province
 
     },
@@ -161,7 +164,7 @@ export default {
         this.$router.push({name:"MyAddress"})
     },
     onSubmit() {
-      if(this.addressdata==null){
+      if(!this.mylist.length){
         Toast('请输入收货地址');
       }else{
         let numbers=this.total
@@ -179,9 +182,9 @@ export default {
   },
 
   created() {
-    this.list = JSON.parse(localStorage.getItem("order-data"));
+    this.list = JSON.parse(localStorage.getItem("order-data")) || [];
     // console.log(this.list);
-    this.addressdata = JSON.parse(localStorage.getItem("address-data"))
+    this.addressdata = JSON.parse(localStorage.getItem("address-data")) || [];
     // console.log("czyyy",this.addressdata);
     // console.log(this.mylist=='')
     if(this.addressdata!=null){
@@ -191,7 +194,7 @@ export default {
           let id=i+1;
           let name=this.addressdata[i].myname
           let tel=this.addressdata[i].tel
-          let address=this.addressdata[i].province+this.addressdata[i].addressDetail
+          let address=this.addressdata[i].province+this.addressdata[i].address
           let obj={id,name,tel,address}
           this.mylist.push(obj)
           // console.log(this.mylist);
@@ -201,7 +204,7 @@ export default {
             this.chosenAddressId=id;
             this.myname = this.addressdata[i].myname
             this.myphone = this.addressdata[i].tel
-            this.myaddressDetail = this.addressdata[i].addressDetail
+            this.myaddress = this.addressdata[i].address
             this.province = this.addressdata[i].province
 
             // this.city = this.addressdata[i].city
@@ -221,6 +224,13 @@ export default {
 // }
 .address {
   padding: 0.4rem 0.2rem;
+  .nosubmit {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    font-size: 40px;
+    color: #000;
+  }
   .address_nav {
     display: flex;
     align-content: center;
@@ -342,6 +352,10 @@ export default {
           margin-top: 0.15rem;
           font-size:0.35rem;
           padding-bottom:0.15rem;
+          .shopcount {
+            position: relative;
+            left: 200px;
+          }
         }
       }
     }
