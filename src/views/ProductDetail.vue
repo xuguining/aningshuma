@@ -1,3 +1,4 @@
+<!-- 已修改 -->
 <template>
   <div class="productdetail">
     <!-- 顶部返回和导航栏 -->
@@ -49,12 +50,12 @@
         <div class="switch">
           <van-swipe @change="onChange" :autoplay="isauto ? '-1' : '3000'">
             <van-swipe-item v-if="showVideo">
-              <img
+              <!-- <img
                 :src="imglist[3].url"
                 class="my-img-auto"
                 style="top:0;bottom:0;left:0;right:0;width:100%;height:100%;"
                 v-if="!isauto"
-              />
+              /> -->
               <img
                 src="https://s10.mogucdn.com/mlcdn/c45406/190516_61cf06ffkl181d5g4725kh9ccibki_165x165.png"
                 class="my-img-auto"
@@ -144,8 +145,7 @@
         <van-checkbox
           v-model="checked"
           checked-color="#ee0a24"
-          >只看当前商品</van-checkbox
-        >
+          >只看当前商品</van-checkbox>
         <div v-for="(item, index) in Allping" :key="index">
           <div v-if="checked">
             <PingLun v-if="activeTab === 'user'" :list="item"></PingLun>
@@ -179,6 +179,7 @@
         <van-goods-action-button type="danger" text="立即购买" @click="goBuy"/>
       </van-goods-action>
     </div>
+    <!-- 加入购物车 -->
     <van-popup
       v-model="pop"
       position="bottom"
@@ -223,6 +224,51 @@
         <div class="confirm" @click="getObje" >确认加入</div>
       </div>
     </van-popup>
+    <!-- 立即购买 -->
+    <van-popup
+    v-model="buy"
+    position="bottom"
+    :style="{ height: '30%' }"
+    class="vant-pop"
+  >
+    <div class="peizhi_box" v-if="gG.length != 0">
+      <div class="peiz">配置</div>
+      <div
+        class="xuanzhe"
+        :class="{ active: Activeindex === index }"
+        v-for="(item, index) in gG"
+        :key="index"
+        @click="changtab(index)"
+      >
+        {{ item.item }}
+      </div>
+    </div>
+    <div class="peizhi_box">
+      <div class="peiz">颜色</div>
+      <div
+        class="xuanzhe"
+        v-for="(item, index) in mycolor"
+        :key="index"
+        :class="{ active: myi === index }"
+        @click="toggle(index)"
+      >
+        {{ item.item }}
+      </div>
+    </div>
+    <div class="count_box">
+      <span>数量</span>
+      <van-stepper
+        v-model="value"
+        theme="round"
+        button-size="22"
+        disable-input
+        class="stepp"
+      />
+    </div>
+    <div class="confirm_box">
+      <div class="confirm" @click="gopay">确认购买</div>
+    </div>
+  </van-popup>
   </div>
 </template>
 
@@ -292,6 +338,7 @@ export default {
       Allping: [],//评论内容的数据
       // DanPing: [],
       canshu: [],//产品介绍后面参数图
+      buy: false,
       pop: false,//弹窗是否弹起
       value: "",//数量 步记器 刚开始给了空字符串 但不影响后面他是数字
       myi: 0,//加入购物车里面 颜色项配置选择 0 1 2
@@ -352,8 +399,8 @@ export default {
   methods: {
     goBuy(){
     if(this.token){
-      this.getObje()
-      this.$router.push({ name: "ShopCard" });
+      this.buy = true;
+      // this.$router.push({ name: "ShopCard" });
     }else{
        Toast('请先登录账号');
     }
@@ -432,7 +479,64 @@ export default {
       // this.$router.push({name:'ShopCard'})
     },
     // 获取加入购物车时的数据结束
-
+    gopay() {
+      let peizhi;
+      let colors;
+      this.gG.forEach((v, i) => {
+        // console.log(v,i);
+        if (this.Activeindex == i) {
+          // console.log(this.Activeindex);
+          // console.log(v.item);
+          peizhi = v.item;
+        }
+      });
+      this.mycolor.forEach((v, i) => {
+        if (this.myi == i) {
+          // console.log(v.item);
+          colors = v.item;
+        }
+      });
+      let price = this.list.originalPrice
+      // console.log(price);
+      let munber = this.value;
+      // console.log(this.value);
+      let img = this.list.url;
+      let ids = this.id;
+      // console.log("czyyyyy",this.list.name)
+      let myname = this.list.name;
+      let ischeck = this.ischeck
+      // console.log(munber);
+      // console.log(myname);
+      // console.log(img);
+      let obj = { munber, img, ids, myname, colors, peizhi,price,ischeck};
+      // console.log(ids);
+      // let local = JSON.parse(localStorage.getItem("shopobj-data")) || [];
+      let local = JSON.parse(localStorage.getItem("shopobj-data"));
+      // let flag = 0;
+      // console.log("czy1",local.length);
+      for (let i = 0; i < local.length; i++) {
+        if (local[i].ids === ids) {
+          if (local[i].colors === colors) {
+            if (local[i].peizhi === peizhi) {
+              local[i].munber += munber;
+              localStorage.setItem("shopobj-data", JSON.stringify(local));
+              // this.dataLength=JSON.parse(localStorage.getItem("shopobj-data")).length
+              this.buy =!this.buy
+              this.$toast("加入购物车成功")
+              this.$router.push({name:'ShopCard'})
+              return;
+            }
+          }
+        }
+          
+      }
+      local.push(obj);
+      localStorage.setItem("shopobj-data", JSON.stringify(local));
+      this.buy =!this.buy
+      this.dataLength=JSON.parse(localStorage.getItem("shopobj-data")).length
+      this.$toast("加入购物车成功")
+      this.$router.push({name:'ShopCard'})
+    },
     goBack() {
       this.$router.go(-1);
     },
@@ -473,6 +577,7 @@ export default {
       }
       
     },
+
     // 配置高亮
     changtab(index) {
       if (this.Activeindex === index) {
@@ -511,7 +616,7 @@ export default {
         // console.log("696969696",this.list)
         // console.log("11111111",this.list);
         this.imglist = res.data.duoDuanDetailImages;
-        // console.log(this.imglist)
+        console.log("imglist",this.imglist)
         this.list.attributes.configs.forEach((v) => {
           if (v.name === "配置") {
             this.gG = v.values;
