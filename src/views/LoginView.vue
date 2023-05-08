@@ -1,3 +1,4 @@
+<!-- 已修改 -->
 <template>
   <div class="login">
     <!-- 登录模块header部分开始 -->
@@ -88,7 +89,7 @@
               </div>
               <!-- 密码登陆的提示 -->
               <div class="text-error" v-if="showError">
-                帐号或密码错误,<br />建议点击下方直接注册！<br />或使用账号：czy
+                帐号或密码错误,<br />建议点击下方直接注册！<br />或使用账号：xgn
                 密码：12345
               </div>
               <div class="lackUsrname" v-if="showlack">
@@ -131,9 +132,9 @@
                   <input
                     style="width: 55%"
                     type="text"
-                    v-model="password"
+                    v-model="msgpassword"
                     :placeholder="$t('login.p_pass')"
-                    @input="handlePhonepass"
+                    @input="handleMsgpass"
                   />
                   <!-- 写俩不一样颜色的按钮 -->
                   <span
@@ -193,6 +194,7 @@ export default {
       isright: false, //提示注册成功
       mywd: "", //随机产生的6位验证码
       isCode: false, //提示成功获取验证码
+      msgpassword:"" // 验证码密码
       // showNumber:true
     };
   },
@@ -214,7 +216,7 @@ export default {
     },
     // 账号密码为空时 无法点击登录
     showLoginBtn() {
-      if (!!this.username && !!this.password) {
+      if (!!this.username && !!this.password || !!this.msgpassword) {
         return true;
       } else {
         return false;
@@ -257,7 +259,7 @@ export default {
       this.$axios
         .post("/user/getcode", {
           username: this.username,
-          code: this.password,
+          code: this.msgpassword,
         })
         .then((res) => {
           // console.log(res);
@@ -272,7 +274,7 @@ export default {
             });
             // console.log("111",this.token);
             // console.log("登录成功");
-            this.$router.push({ name: "ShopCard" });
+            this.$router.push({ name: "MyView" });
           } else {
             this.isright = false;
             this.iscorrect = false;
@@ -311,7 +313,7 @@ export default {
         });
         // 将随机数传到VUEX
         // console.log("czy11",mycode);
-        that.password = that.Mywd[that.Mywd.length - 1];
+        that.msgpassword = that.Mywd[that.Mywd.length - 1];
         // console.log("随机数：",that.mywd);
         // console.log("验证成功");
         // console.log(" that.password:",that.password);
@@ -367,7 +369,7 @@ export default {
         this.iscorrect = false;
         this.isright = false;
         this.showlack = true;
-      } else if (this.username.length < 6) {
+      } else if (this.username.length < 6 || !this.password) {
         this.showError = false;
         this.showlack = false;
         this.isright = false;
@@ -392,6 +394,10 @@ export default {
       this.password = e.target.value;
       // console.log(this.password);
     },
+    // 输入短信密码
+    handleMsgpass(e){
+      this.msgpassword=e.target.value;
+    },
     // 登录提交功能
     handleSubmit() {
       this.$axios
@@ -411,7 +417,9 @@ export default {
             });
             // console.log("111",this.token);
             // console.log("登录成功");
-            this.$router.push({ name: "ShopCard" });
+            // this.$router.push({ name: "ShopCard" });
+            sessionStorage.setItem("username",res.data.username);
+            this.$router.push({ name: "MyView" });
           } else {
             this.isright = false;
             this.iscorrect = false;
