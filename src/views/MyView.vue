@@ -1,3 +1,4 @@
+<!-- 已修改 -->
 <template>
   <div class="my">
     <!-- 头部 -->
@@ -226,7 +227,7 @@
 <script>
 import Vue from "vue";
 import { Swipe, SwipeItem } from "vant";
-import { Icon } from "vant";
+import { Icon,Toast } from "vant";
 import MyFooter from "@/components/MyFooter.vue";
 import {mapState } from "vuex";
 Vue.use(Swipe);
@@ -257,11 +258,19 @@ export default {
     },
     goorder(){
         // this.$router.push({name:'SubmitOrder'})
-        this.$router.push({ name: "ShopCard" });
+        if (this.token) {
+        this.$router.push({ name: "SubmitOrder" });
+      } else {
+        Toast("请登录账号");
+      }
     },
     goadress(item) {
       if (item.id === "33219") {
-        this.$router.push({ name: "MyAddress" });
+        if (this.token) {
+          this.$router.push({ name: "MyAddress" });
+        } else {
+          Toast("请登录账号");
+        }
       }
     },
   },
@@ -275,7 +284,7 @@ export default {
     this.switchlist = res.data;
     // console.log(" 1111this.switchlist", this.switchlist);
   });
-  },
+}
 };
 </script>
 
