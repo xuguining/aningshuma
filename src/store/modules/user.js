@@ -1,6 +1,6 @@
 const state ={
     token:'',
-    username:["czy",],
+    username:["xgn",],
     password:[12345,],
     Mywd:[]
 }
