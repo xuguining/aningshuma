@@ -1,3 +1,4 @@
+<!-- 已修改 -->
 <template>
   <div class="shop_card">
     <!-- 购物车顶部的返回和标题 -->
@@ -182,8 +183,8 @@ export default {
       this.$router.push({ name: "Login" });
     },
     goback() {
-      // this.$router.go(-1);
-      this.$router.push({ name: "HomePage" });
+      this.$router.go(-1);
+      // this.$router.push({ name: "HomePage" });
     },
     // 这是点编辑的转化
     editReturns(){
