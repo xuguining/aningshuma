@@ -1,3 +1,4 @@
+<!-- 支付成功页面，已修改 -->
 <template>
     <div class="order">
         <div class="order_nav">
