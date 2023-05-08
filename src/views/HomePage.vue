@@ -1,3 +1,4 @@
+<!-- 已改 -->
 <template>
   <div class="home_page">
     <!-- 组件引头部 -->
@@ -13,8 +14,8 @@
     <!-- 横排五图片 -->
     <div class="cation">
       <!-- 统一接入myarr的第6个商品 -->
-      <ul @click="gohppone(myarr[5])">
-        <li v-for="(item, index) in cation" :key="index">
+      <ul>
+        <li v-for="(item, index) in cation" :key="index" @click="gohppone(myarr[5])">
           <div class="li_img"><img :src="item.url"/></div>
           <div class="li_text">{{ item.title }}</div>
         </li>
@@ -34,8 +35,9 @@
 
       <!-- 4小图开始 -->
             <!-- 统一接入myarr的第5个商品 --> 
-      <div class="home_check"  @click="gohppone(myarr[4])">
-        <div class="home_check_item" v-for="(item, index) in enco" :key="index">
+      <div class="home_check">
+        <div class="home_check_item" v-for="(item, index) in enco" 
+            :key="index"  @click="gohppone(myarr[4])">
           <img :src="item.url" />
         </div>
       </div>
@@ -167,7 +169,7 @@ export default {
           }
         // console.log(id);
           this.$router.push({name:"ProductDetail",query:{id}})
-          console.log(id);
+          // console.log(id);
         }
       })
     }
@@ -256,24 +258,9 @@ export default {
 ul::-webkit-scrollbar{
             width: 0px;
           }
-// /deep/.van-notice-bar {
-//   background-color: red;
-//   // line-height: 75px;
-// }
-// .notice-swipe {
-//   height: 40px;
-//   line-height: 40px;
-// }
 .van-count-down {
   color: red;
 }
-// /deep/.van-icon::before {
-//   width: 0.48rem;
-//   color: #b2b2b2;
-//   font-weight: 300;
-//   font-size: 0.36rem;
-//   text-align: center;
-// }
 
 .home_page {
   width: 100vw;
@@ -326,8 +313,6 @@ ul::-webkit-scrollbar{
       align-items: center;
       box-sizing: border-box;
       padding: 13px;
-      // scrollbar-width:0px;
-      // scrollbar-color:transparent;
       li {
         &:nth-child(1) {
           margin-left: 0.35rem;
