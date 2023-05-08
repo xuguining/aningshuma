@@ -1,3 +1,4 @@
+<!-- 已修改 -->
 <template>
     <!-- 头部 -->
   <div class="address">
@@ -71,33 +72,30 @@ export default {
     // },
     // 保存地址
     saveAdrress(content){
-        // console.log(content);
+        // console.log(contenngth');
         // let id=+new Date();
         if(this.$route.query.edit){
           let myname = content.name
           let tel = content.tel
           let province = content.province
-          let addressDetail =content.addressDetail
-          let obj = {myname,tel,province,addressDetail}
+          let address = content.addressDetail;
+          let obj = {myname,tel,province,address}
           let adobj = JSON.parse(localStorage.getItem("address-data")) || []
           adobj[this.$route.query.edit-1]=obj
           localStorage.setItem("address-data",JSON.stringify(adobj))
           this.$router.push({name:'SubmitOrder'}) 
-
-
-
         }else{
           let myname = content.name
           let tel = content.tel
           let province = content.province
-          let addressDetail =content.addressDetail
-          let obj = {myname,tel,province,addressDetail}
+          let address =content.addressDetail
+          let obj = {myname,tel,province,address}
           let adobj = JSON.parse(localStorage.getItem("address-data")) || []
           adobj.push(obj)
           localStorage.setItem("address-data",JSON.stringify(adobj))
-          this.$router.push({name:'SubmitOrder'}) 
+          // this.$router.push({name:'SubmitOrder'}) 
+          this.$router.go(-1);
         }
-        
     },
   },
   mounted(){
