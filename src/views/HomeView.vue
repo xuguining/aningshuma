@@ -1,3 +1,4 @@
+<!-- 已修改 -->
 <template>
 <!-- 父路由 底部导航栏 -->
   <div class="home">
@@ -193,7 +194,7 @@ export default {
         // immediate:true,
         deep:true,
         handler(value){
-          // console.log('czyyyyyy',value);
+          //console.log('czyyyyyy',value);
           // console.log('czyyyyyy',JSON.parse(value).length);
           this.shopcarNum=JSON.parse(value).length;
 
@@ -232,7 +233,8 @@ export default {
   //   console.log("czy1",localStorage.getItem('shopobj-data'));
   // }
 
-//本来想着深度侦听一下data  但后面发现底部导航栏一直没被销毁 只是被子组件盖着了 所以 created覆盖不了 等以后有时候用全局事件总线 处理一下这个购物车删除内容时的小徽标更新问题
+//本来想着深度侦听一下data  但后面发现底部导航栏一直没被销毁 只是被子组件盖着了 
+//所以 created覆盖不了 等以后有时候用全局事件总线 处理一下这个购物车删除内容时的小徽标更新问题
   created(){
     this.data=localStorage.getItem('shopobj-data');
     
