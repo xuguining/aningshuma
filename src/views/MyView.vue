@@ -421,7 +421,7 @@ export default {
   .my_tool {
     width: 100%;
     margin-top: 0.3rem;
-    margin-bottom: 1.5rem;
+    //margin-bottom: 0.05rem;
     .tool_list {
       width: 100%;
       box-sizing: border-box;
@@ -442,7 +442,7 @@ export default {
         padding:0 0.4rem;
         margin-top: 0.2rem;
         // margin-left: 0.6rem;
-        width: 1.35rem;
+        width: 1.37rem;
 
         .img_box {
           width: 100%;
