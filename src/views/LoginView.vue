@@ -28,7 +28,7 @@
             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANAAAAAiCAMAAAAZIKdUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAOVBMVEVHcEwzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM0rESPAAAAEnRSTlMAzw6B9m894GDA6RqRTKIptQUyJXn2AAADP0lEQVRYw+2Z65KjIBCFw/0ioPj+D7sGGkW5mB2Zqq2t8GeqxmPoj+ZAd/J6fT5m5pCm60qFMnJqaKRT4kYzSRM1Gjk2/1zzbExErKehpN8fLmgb/IUZOmsQw7vGvTX2heVFI0jB7aW61Twc2NC1GFqmx4HVkoqGsoQdYpRMVzQGnyaTH2geDl6ZImRpyoBoXYPmDKjxOYJnW0HVNZqP45FpmRSRlnPLTNo2ej6AEqQJms0D6S1+ACXIXQOrQPdkz3rXsKAhSbPKUTwWZpA4t1ScRk8nIJGZZrOUzoh2IJ0bAkt418LnwitnDTppno45hs785ZRYIqbPgIy/Wi9i4gzIXczgSUQIBD6GvlzOAM+iZsxxFwKnldWJ0bIDiJWaGIk5gExrByxn+VVDd83jBLViBVThE5CpaQI1xQmoGlLE2Jbfi3vN4xEiQh1WDkC6erBiCn6OQNX7JHKQ7TTtRI2aa/aXAzUTBEESAGpM5oJxQNvYM8FG6vjbTBEaAEQhC81AHADJzpmPDvjqPRcyDPA9DR0A1N4psGoLAPHOoS9SpdDzKZiysRsm0IwBmj8Ash2glCHWAaJ9oHkUUC9YB94RnUAIQKuOzyRk0cAW7mV6zDVUn8Rr2EaiY2YEvlDpjO8cHAFMdzQjLiLZvqNZ8pdYmyay6ZFq12NzejS177yZjirncEiDwq053F4piMrRMYl02qpm9YLRnhjX0sSaSA/pIWIeSqLYU4TZofRBBdGM9txB6SOKaKcsd3GNyk4Bq7Vj0x+5KGvn4hQkq99E0c5BTUmPmmivtgk+d6c6r4lYTfM6a55vOpQaYQ7zTNbRvNY8+iFt7K4x0Nos/twPUWchlZinxh7hU8Xb1zwnWo7eEi0KHX0neRUN3lujco3zRYO3gSO1oOO1BZ+P+RvNAB/Rbucca7lqf73v1ADkRE1DT97gH2gGfOlTfksiDsPE0geTAkkfZoilj2ei/P6jaOfuNSP2nXRZvMLwazWx/cPbPAXCWX+pzN/p4ibTaCdrO+kTzZA8WckIYZLjSnkEhBMHzVRpNWQyetTYzrp/ovm10au2a0D//PgCfYG+QF+g/xtouzDI3U848q2Zfz2UPz2AcJFc2usZAAAAAElFTkSuQmCC"
             alt=""
           /> -->
-          <img src="@/assets/log.png" class="auto-img" />
+          <img src="@/assets/logo-head6.png" class="auto-img" />
         </div>
         <!-- <div style="width:100%;height:0.41667rem;"></div> -->
         <div class="login-body-header">{{ $t("slogan") }}</div>
@@ -541,10 +541,6 @@ export default {
           height: auto;
           display: block;
         }
-        // background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANAAAAAiCAMAAAAZIKdUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAOVBMVEVHcEwzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM0rESPAAAAEnRSTlMAzw6B9m894GDA6RqRTKIptQUyJXn2AAADP0lEQVRYw+2Z65KjIBCFw/0ioPj+D7sGGkW5mB2Zqq2t8GeqxmPoj+ZAd/J6fT5m5pCm60qFMnJqaKRT4kYzSRM1Gjk2/1zzbExErKehpN8fLmgb/IUZOmsQw7vGvTX2heVFI0jB7aW61Twc2NC1GFqmx4HVkoqGsoQdYpRMVzQGnyaTH2geDl6ZImRpyoBoXYPmDKjxOYJnW0HVNZqP45FpmRSRlnPLTNo2ej6AEqQJms0D6S1+ACXIXQOrQPdkz3rXsKAhSbPKUTwWZpA4t1ScRk8nIJGZZrOUzoh2IJ0bAkt418LnwitnDTppno45hs785ZRYIqbPgIy/Wi9i4gzIXczgSUQIBD6GvlzOAM+iZsxxFwKnldWJ0bIDiJWaGIk5gExrByxn+VVDd83jBLViBVThE5CpaQI1xQmoGlLE2Jbfi3vN4xEiQh1WDkC6erBiCn6OQNX7JHKQ7TTtRI2aa/aXAzUTBEESAGpM5oJxQNvYM8FG6vjbTBEaAEQhC81AHADJzpmPDvjqPRcyDPA9DR0A1N4psGoLAPHOoS9SpdDzKZiysRsm0IwBmj8Ash2glCHWAaJ9oHkUUC9YB94RnUAIQKuOzyRk0cAW7mV6zDVUn8Rr2EaiY2YEvlDpjO8cHAFMdzQjLiLZvqNZ8pdYmyay6ZFq12NzejS177yZjirncEiDwq053F4piMrRMYl02qpm9YLRnhjX0sSaSA/pIWIeSqLYU4TZofRBBdGM9txB6SOKaKcsd3GNyk4Bq7Vj0x+5KGvn4hQkq99E0c5BTUmPmmivtgk+d6c6r4lYTfM6a55vOpQaYQ7zTNbRvNY8+iFt7K4x0Nos/twPUWchlZinxh7hU8Xb1zwnWo7eEi0KHX0neRUN3lujco3zRYO3gSO1oOO1BZ+P+RvNAB/Rbucca7lqf73v1ADkRE1DT97gH2gGfOlTfksiDsPE0geTAkkfZoilj2ei/P6jaOfuNSP2nXRZvMLwazWx/cPbPAXCWX+pzN/p4ibTaCdrO+kTzZA8WckIYZLjSnkEhBMHzVRpNWQyetTYzrp/ovm10au2a0D//PgCfYG+QF+g/xtouzDI3U848q2Zfz2UPz2AcJFc2usZAAAAAElFTkSuQmCC);
-        // background-repeat: no-repeat;
-        // background-position: 50%;
-        // background-size: 100% 100%;
       }
       .login-body-header {
         font-size: 0.33333rem;
