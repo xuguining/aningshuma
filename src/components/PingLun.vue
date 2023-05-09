@@ -130,7 +130,7 @@ export default {
       -webkit-line-clamp: 2; //行数
       line-clamp: 2;
       -webkit-box-orient: vertical;
-      line-height: 0.42rem;
+      line-height: 0.52rem;
       overflow-wrap: break-word;
       color: rgb(71, 71, 71);
       position: relative;
@@ -161,7 +161,7 @@ export default {
   .cont_showtext {
     position: absolute;
     left: 0;
-    top: 80px;
+    top: 85px;
     z-index: 999;
     padding-top: 0.15rem;
     color: #0a7ffb;
