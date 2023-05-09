@@ -1,3 +1,4 @@
+<!-- 修改了页面底部登录退出弹窗功能 -->
 <template>
   <div class="myfooter">
     <!-- 第一行 -->
@@ -25,23 +26,45 @@
           ></path></svg
         >下载APP
       </div>
-      <div class="left_rgiht">
-        <svg
-          t="1652374406568"
-          class="icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="3013"
-          width="24"
-          height="24"
+      <div class="left_rgiht" v-if="flag">
+        <a @click="exitAccount"
+          ><svg
+            t="1652374406568"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="3013"
+            width="24"
+            height="24"
+          >
+            <path
+              d="M960.512 539.712l-144.768 144.832-48.256-48.256 60.224-60.288H512V512h325.76l-70.272-70.272 48.256-48.256 144.768 144.768-0.704 0.768 0.704 0.704zM704 192a64 64 0 0 0-64-64H192a64 64 0 0 0-64 64v640a64 64 0 0 0 64 64h448a64 64 0 0 0 64-64v-64h64v64a128 128 0 0 1-128 128H192a128 128 0 0 1-128-128V192a128 128 0 0 1 128-128h448a128 128 0 0 1 128 128v128h-64V192z"
+              p-id="3014"
+              fill="#dbdbdb"
+            ></path></svg
+          ><span class="dlzh">退出账号</span></a
         >
-          <path
-            d="M960.512 539.712l-144.768 144.832-48.256-48.256 60.224-60.288H512V512h325.76l-70.272-70.272 48.256-48.256 144.768 144.768-0.704 0.768 0.704 0.704zM704 192a64 64 0 0 0-64-64H192a64 64 0 0 0-64 64v640a64 64 0 0 0 64 64h448a64 64 0 0 0 64-64v-64h64v64a128 128 0 0 1-128 128H192a128 128 0 0 1-128-128V192a128 128 0 0 1 128-128h448a128 128 0 0 1 128 128v128h-64V192z"
-            p-id="3014"
-            fill="#dbdbdb"
-          ></path></svg
-        >分享转发
+      </div>
+      <div class="left_rgiht" v-else>
+        <a @click="toLogin"
+          ><svg
+            t="1652374406568"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="3013"
+            width="24"
+            height="24"
+          >
+            <path
+              d="M960.512 539.712l-144.768 144.832-48.256-48.256 60.224-60.288H512V512h325.76l-70.272-70.272 48.256-48.256 144.768 144.768-0.704 0.768 0.704 0.704zM704 192a64 64 0 0 0-64-64H192a64 64 0 0 0-64 64v640a64 64 0 0 0 64 64h448a64 64 0 0 0 64-64v-64h64v64a128 128 0 0 1-128 128H192a128 128 0 0 1-128-128V192a128 128 0 0 1 128-128h448a128 128 0 0 1 128 128v128h-64V192z"
+              p-id="3014"
+              fill="#dbdbdb"
+            ></path></svg
+          ><span class="dlzh">登录账号</span></a
+        >
       </div>
     </div>
     <!-- 第二行 -->
@@ -51,17 +74,52 @@
       <li>用户协议</li>
     </ul>
     <!-- 第一行 -->
-    <div class="last">
-        © 小陈数码练习项目--联系方式：13710809956
-    </div>
+    <div class="last">© 阿凝数码练习项目--联系方式：13727784929</div>
   </div>
 </template>
 
 <script>
+import { Dialog } from 'vant';
 export default {
   data() {
-    return {};
+    return {
+      flag: false,
+    };
   },
+  computed: {},
+  methods: {
+    exitAccount() {
+      Dialog.confirm({
+        title: "退出提示",
+        message: "是否退出登录",
+      })
+        .then(() => {
+          // on confirm
+          this.$router.push("Login");
+        })
+        .catch(() => {
+          // on cancel
+        });
+    },
+    toLogin(){
+      Dialog.confirm({
+        title: "登录提示",
+        message: "是否登录",
+      })
+        .then(() => {
+          // on confirm
+          this.$router.push("Login");
+        })
+        .catch(() => {
+          // on cancel
+        });
+    }
+  },
+  created(){ 
+    if (this.$store.state.user.token) {
+        this.flag=true
+      }
+    }
 };
 </script>
 
@@ -97,8 +155,8 @@ export default {
       line-height: 0.52rem;
       left: -25px;
       top: 2px;
-       position: relative;
-         .icon {
+      position: relative;
+      .icon {
         position: absolute;
         left: -25px;
         top: -4px;
@@ -123,19 +181,19 @@ export default {
       background: #fff;
     }
   }
-  .last{
-       margin-top: -20px;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      flex-direction: column;
-      -webkit-box-pack: center;
-      justify-content: center;
-      height: 1.41rem;
-      color: #666;
-      font-weight: 400;
-      font-size: 0.2rem;
-      text-align: center;
-      background: #fff;
+  .last {
+    margin-top: -20px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 1.41rem;
+    color: #666;
+    font-weight: 400;
+    font-size: 0.2rem;
+    text-align: center;
+    background: #fff;
   }
 }
 </style>
