@@ -395,6 +395,7 @@ export default {
     justify-content: space-evenly;
     background-color: rgb(249, 246, 246);
     box-sizing: border-box;
+    
     .shop_content {
       display: flex;
       align-items: center;
@@ -445,6 +446,9 @@ export default {
           }
         }
       }
+    }
+    .shop_content:last-child{
+      margin-bottom: 2rem;
     }
   }
 }
