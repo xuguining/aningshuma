@@ -24,7 +24,7 @@
       <div class="title">提交订单页</div>
     </div>
     <!-- 地址选择开始 -->
-    <div class="order_address" v-if="!this.list">
+    <div class="order_address" v-if="this.list">
       <div class="select" @click="show=true" v-if="mylist==''">
         暂无地址信息
         <span><van-icon name="arrow" /></span>
@@ -61,7 +61,7 @@
       </div>
     </div>
 
-    <div class="body" v-if="!this.list">
+    <div class="body" v-if="this.list">
       <!-- 订单商品开始 -->
       <div class="main_body" v-for="(item, index) in list" :key="index">
         <div class="product_box">
@@ -78,14 +78,14 @@
       <!-- 订单商品结束 -->
     </div>
     <!-- 提交开始 -->
-    <div class="footer" v-if="!this.list">
+    <div class="footer" v-if="this.list">
       <van-submit-bar
         :price="total"
         button-text="提交订单"
         @submit="onSubmit"
       />
     </div>
-    <span v-if="this.list" class="nosubmit">请提交订单</span>
+    <span v-if="!this.list" class="nosubmit">请提交订单</span>
   </div>
 </template>
 
@@ -113,7 +113,7 @@ export default {
   components: {},
   data() {
     return {
-      list: [],//orderdata 已经提交的数据
+      list: Array(0),//orderdata 已经提交的数据
       showNew: true,
       show: false,//控制是否弹窗
       chosenAddressId:1,
@@ -182,7 +182,7 @@ export default {
   },
 
   created() {
-    this.list = JSON.parse(localStorage.getItem("order-data")) || [];
+    this.list = JSON.parse(localStorage.getItem("order-data"));
     // console.log(this.list);
     this.addressdata = JSON.parse(localStorage.getItem("address-data")) || [];
     // console.log("czyyy",this.addressdata);
