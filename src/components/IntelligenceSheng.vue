@@ -1,3 +1,4 @@
+<!-- 修改了首页大图排版问题 -->
 <template>
 <!-- 首页的其他所有内容 -->
   <div class="IntelligenceSheng" @click="gohppone(compoonentarr_item)">
@@ -92,12 +93,14 @@ export default {
 
 <style lang="less" scoped>
 .IntelligenceSheng {
-  margin-bottom: 20px;
+  margin-bottom: .4rem;
   .IntelligenceSheng_name {
     color: #000;
     font-weight: 500;
-    font-size: .3rem;
+    font-size: .4rem;
     line-height: .6rem;
+    margin-bottom: .3rem;
+    //background-color: #f6f6;
   }
   img {
     width: 100%;
@@ -109,9 +112,12 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     .IntelligenceSheng_body_item {
-      width: 33%;
+      border-radius: 0.2rem;
+      position: relative;
+      padding: .1333rem;
+      width: 30%;
       margin-top: 0.5%;
-      padding-bottom: 0.3rem;
+      height: 5rem;
       overflow: hidden;
       font-size: 0;
       background: #fff;
@@ -125,9 +131,10 @@ export default {
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
         overflow: hidden;
-        padding: 5px;
       }
       .price {
+        position: absolute;
+        bottom: 0.25rem;
         color: #000;
         font-weight: 400;
         font-size: 0.26rem;
@@ -137,7 +144,7 @@ export default {
         -webkit-line-clamp: 2;
         overflow: hidden;
         margin-top: 6px;
-         padding: 5px;
+        padding: 5px;
         span {
           color: rgb(0, 0, 0);
           font-size: 0.2rem;
