@@ -78,10 +78,7 @@
                       @click="showPass = !showPass"
                     >
                       <span
-                        :class="[
-                          'input_icon__ewiea9',
-                          { 'input_off__3o-wkn': showPass },
-                        ]"
+                        :class="['input_icon__ewiea9']"
                       ></span>
                     </div>
                   </div>
@@ -155,7 +152,7 @@
               <div class="correctUsername" v-if="isCode" style="color: green">
                 验证码发送成功！请点击登陆~
               </div>
-              <div class="login-text" v-if="!showLoginBtn">
+              <div class="login-text" v-if="!showLoginBtn2">
                 {{ $t("login.loginText") }}
               </div>
               <div class="login-text-deep" v-else @click="mywdlogin">
@@ -216,7 +213,14 @@ export default {
     },
     // 账号密码为空时 无法点击登录
     showLoginBtn() {
-      if (!!this.username && !!this.password || !!this.msgpassword) {
+      if (!!this.username && !!this.password) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    showLoginBtn2() {
+      if (!!this.username && !!this.msgpassword) {
         return true;
       } else {
         return false;
@@ -241,11 +245,6 @@ export default {
   },
 
   methods: {
-    // changepass(){
-    //   this.showPass=!this.showPass
-    //   console.log(this.showPass);
-    // },
-
     // 验证码登录
     mywdlogin() {
       // console.log("我的验证码",this.username);
@@ -435,6 +434,7 @@ export default {
       this.showlack = false;
       this.showError = false;
       this.activeTab = "msg";
+      this.msgpassword=""
     },
     // 切换成密码
     changePass() {
@@ -443,6 +443,7 @@ export default {
       this.showlack = false;
       this.showError = false;
       this.activeTab = "pass";
+      this.password=''
     },
   },
 };
