@@ -77,6 +77,7 @@ export default {
     let count = Math.floor(this.compoonentarr_item.productDetailss.length / 3);
     count = count * 3;
     for (let i in this.compoonentarr_item.productDetailss) {
+      // console.log('i',i);
       if (i < count) {
         this.item_arr.push(this.compoonentarr_item.productDetailss[i]);
       }else{

@@ -25,19 +25,19 @@
     </div>
     <!-- 地址选择开始 -->
     <div class="order_address" v-if="this.list">
-      <div class="select" @click="show=true" v-if="mylist==''">
+      <div class="select" @click="show = true" v-if="mylist == ''">
         暂无地址信息
         <span><van-icon name="arrow" /></span>
       </div>
-      <div class="user" v-else @click="show=true">
+      <div class="user" v-else @click="show = true">
         <div class="user_imfo">
-          <div class="name">{{myname}}</div>
-          <div class="phone">{{myphone}}</div>
+          <div class="name">{{ myname }}</div>
+          <div class="phone">{{ myphone }}</div>
           <!-- <div class="my_icon">
             <van-tag round type="primary">默认</van-tag>
           </div> -->
         </div>
-        <div class="my_address">{{province}} {{myaddress}}</div>
+        <div class="my_address">{{ province }} {{ myaddress }}</div>
         <span><van-icon name="arrow" class="bottom_arrow" /></span>
       </div>
     </div>
@@ -46,7 +46,9 @@
     <div class="tanchu_box">
       <div class="tanchu_content">
         <van-popup v-model="show" position="bottom" class="popup">
-          <div class="top" v-if="mylist==''" >暂无地址信息，请点击新增地址！</div>
+          <div class="top" v-if="mylist == ''">
+            暂无地址信息，请点击新增地址！
+          </div>
           <div class="my_address">
             <van-address-list
               v-model="chosenAddressId"
@@ -69,7 +71,8 @@
           <div class="text_box">
             <h2 class="name">{{ item.inname }}</h2>
             <div class="sevenDay">7天保价7天无理由退货</div>
-            <div class="price">¥{{ item.myprice }}
+            <div class="price">
+              ¥{{ item.myprice }}
               <span class="shopcount">x{{ list[index].numbers }}</span>
             </div>
           </div>
@@ -97,7 +100,7 @@ import { Icon } from "vant";
 import { Tag } from "vant";
 import { Popup } from "vant";
 import { AddressList } from "vant";
-import { Toast } from 'vant';
+import { Toast } from "vant";
 
 Vue.use(Toast);
 
@@ -113,19 +116,19 @@ export default {
   components: {},
   data() {
     return {
-      list: Array(0),//orderdata 已经提交的数据
+      list: Array(0), //orderdata 已经提交的数据
       showNew: true,
-      show: false,//控制是否弹窗
-      chosenAddressId:1,
-      mylist: [],//地址数据列表
-      myname:'',//地址最后一项的名字
-      myphone:'',//地址最后一项的电话
-      myaddress:'',//地址最后一项的详细地址
-      province:'',//地址最后一项的省
-      addressdata:[],//地址数据
-      city:'',//地址最后一项的市
-      county:'',//地址最后一项的区
-      timeId:'',
+      show: false, //控制是否弹窗
+      chosenAddressId: 1,
+      mylist: [], //地址数据列表
+      myname: "", //地址最后一项的名字
+      myphone: "", //地址最后一项的电话
+      myaddress: "", //地址最后一项的详细地址
+      province: "", //地址最后一项的省
+      addressdata: [], //地址数据
+      city: "", //地址最后一项的市
+      county: "", //地址最后一项的区
+      timeId: "",
     };
   },
   computed: {
@@ -134,8 +137,8 @@ export default {
       let tol = 0;
       for (let i = 0; i < this.list.length; i++) {
         tol += this.list[i].numbers * this.list[i].myprice;
-        if(this.list.length == 0){
-          tol += 0
+        if (this.list.length == 0) {
+          tol += 0;
         }
       }
 
@@ -145,40 +148,38 @@ export default {
   // watch: {},
 
   methods: {
-    onselect(_,index){
+    onselect(_, index) {
       // console.log(index)
-        let adobj = JSON.parse(localStorage.getItem("address-data")) || []
-        this.chosenAddressId=index;
-        this.myname = adobj[index].myname
-        this.myphone = adobj[index].tel
-        this.myaddress = adobj[index].address
-        this.province = adobj[index].province
-
+      let adobj = JSON.parse(localStorage.getItem("address-data")) || [];
+      this.chosenAddressId = index;
+      this.myname = adobj[index].myname;
+      this.myphone = adobj[index].tel;
+      this.myaddress = adobj[index].address;
+      this.province = adobj[index].province;
     },
     goback() {
       this.$router.go(-1);
     },
     // 跳转至我的地址页面
-    addAddress(){
-        // console.log("1111");
-        this.$router.push({name:"MyAddress"})
+    addAddress() {
+      // console.log("1111");
+      this.$router.push({ name: "MyAddress" });
     },
     onSubmit() {
-      if(!this.mylist.length){
-        Toast('请输入收货地址');
-      }else{
-        let numbers=this.total
-        this.$router.push({ name: "OrderCompletion",query:{numbers} });
-
+      if (!this.mylist.length) {
+        Toast("请输入收货地址");
+      } else {
+        let numbers = this.total;
+        this.$router.push({ name: "OrderCompletion", query: { numbers } });
       }
     },
-    onEdit(){
-        //  Toast('编辑地址:' + index);
-        // console.log("czyyy");
-        let edit=this.chosenAddressId;
-        // console.log(edit);
-        this.$router.push({name:"MyAddress",query:{edit}})
-    }
+    onEdit() {
+      //  Toast('编辑地址:' + index);
+      // console.log("czyyy");
+      let edit = this.chosenAddressId;
+      // console.log(edit);
+      this.$router.push({ name: "MyAddress", query: { edit } });
+    },
   },
 
   created() {
@@ -187,31 +188,32 @@ export default {
     this.addressdata = JSON.parse(localStorage.getItem("address-data")) || [];
     // console.log("czyyy",this.addressdata);
     // console.log(this.mylist=='')
-    if(this.addressdata!=null){
+    if (this.addressdata != null) {
       // console.log(this.addressdata)
       // console.log("6666");
-        for(let i=0;i< this.addressdata.length;i++){
-          let id=i+1;
-          let name=this.addressdata[i].myname
-          let tel=this.addressdata[i].tel
-          let address=this.addressdata[i].province+this.addressdata[i].address
-          let obj={id,name,tel,address}
-          this.mylist.push(obj)
-          // console.log(this.mylist);
+      for (let i = 0; i < this.addressdata.length; i++) {
+        let id = i + 1;
+        let name = this.addressdata[i].myname;
+        let tel = this.addressdata[i].tel;
+        let address =
+          this.addressdata[i].province + this.addressdata[i].address;
+        let obj = { id, name, tel, address };
+        this.mylist.push(obj);
+        // console.log(this.mylist);
         // console.log("111",this.addressdata);
         // console.log("111",this.addressdata[i]);
-        if(i == this.addressdata.length-1){
-            this.chosenAddressId=id;
-            this.myname = this.addressdata[i].myname
-            this.myphone = this.addressdata[i].tel
-            this.myaddress = this.addressdata[i].address
-            this.province = this.addressdata[i].province
+        if (i == this.addressdata.length - 1) {
+          this.chosenAddressId = id;
+          this.myname = this.addressdata[i].myname;
+          this.myphone = this.addressdata[i].tel;
+          this.myaddress = this.addressdata[i].address;
+          this.province = this.addressdata[i].province;
 
-            // this.city = this.addressdata[i].city
-            // this.county = this.addressdata[i].county
+          // this.city = this.addressdata[i].city
+          // this.county = this.addressdata[i].county
         }
-    }
-    }else{
+      }
+    } else {
       // console.log("没地址数据");
     }
   },
@@ -235,9 +237,8 @@ export default {
     display: flex;
     align-content: center;
     // padding-top:5px;
-    .left{
-      margin-left:0.35rem;
-      
+    .left {
+      margin-left: 0.35rem;
     }
     .title {
       //   padding: 0.1rem 0;
@@ -246,7 +247,7 @@ export default {
       color: #000;
       font-weight: 500;
       font-size: 0.44rem;
-      line-height:0.69rem;
+      line-height: 0.69rem;
     }
   }
   .order_address {
@@ -254,22 +255,22 @@ export default {
     box-sizing: border-box;
     margin-top: 0.5rem;
     margin-left: 0.1rem;
-    font-size:15px;
+    font-size: 15px;
 
     .user {
-        position:relative;
-        background-color: #f9f7f7;
-        border-radius:15px;
-        padding:0.1rem 0.4rem 0.2rem;
-        
+      position: relative;
+      background-color: #f9f7f7;
+      border-radius: 15px;
+      padding: 0.1rem 0.4rem 0.2rem;
+
       .user_imfo {
         display: flex;
         margin-top: 0.2rem;
         align-items: center;
-        .name{
-            font-weight: 700;
-            color:#000;
-            font-size:16px;
+        .name {
+          font-weight: 700;
+          color: #000;
+          font-size: 16px;
         }
         .phone {
           margin-left: 0.4rem;
@@ -283,13 +284,13 @@ export default {
         color: #999;
       }
     }
-     .bottom_arrow{
-      position:absolute;
-      top:50%;
+    .bottom_arrow {
+      position: absolute;
+      top: 50%;
       transform: translateY(-50%);
-      right:0.4rem;
-      color:rgb(153, 149, 149);
-      font-size:0.43rem
+      right: 0.4rem;
+      color: rgb(153, 149, 149);
+      font-size: 0.43rem;
     }
   }
   .tanchu_box {
@@ -300,66 +301,66 @@ export default {
         .top {
           font-size: 0.35rem;
           font-weight: bold;
-          padding-top:10px;
+          padding-top: 10px;
           text-indent: 1em;
         }
       }
     }
   }
- .body{
-  padding-bottom:50px;
+  .body {
+    padding-bottom: 50px;
     .main_body {
-    padding: 0 0.3rem;
-    box-sizing: border-box;
-    .product_box {
-      display: flex;
-      align-items: center;
-      position: relative;
+      padding: 0 0.3rem;
       box-sizing: border-box;
-      color: #333;
-      font-size: 0.3rem;
-      line-height: 0.3rem;
-      background-color: rgb(249, 247, 247);
-      width: 9rem;
-      margin-top: 0.5rem;
-      box-sizing: border-box;
-      padding: 0.1rem 0.2rem 0.2rem;
-      border-radius: 15px;
-      .img_box {
-        width: 1.5rem;
-        height: 1.6rem;
-        background-color: white;
-        border-radius: 0.15rem;
-        margin-top: 0.15rem;
-        img {
-          width: 100%;
-          height: 100%;
-        }
-        // background-color: skyblue;
-      }
-      .text_box {
-        margin-left: 0.2rem;
-        .name {
-          color: #333;
-          font-size: 0.35rem;
-          line-height:0.36rem
-        }
-        .sevenDay {
-          color: red;
-          // margin-top: -0.1rem;
-        }
-        .price {
+      .product_box {
+        display: flex;
+        align-items: center;
+        position: relative;
+        box-sizing: border-box;
+        color: #333;
+        font-size: 0.3rem;
+        line-height: 0.3rem;
+        background-color: rgb(249, 247, 247);
+        width: 9rem;
+        margin-top: 0.5rem;
+        box-sizing: border-box;
+        padding: 0.1rem 0.2rem 0.2rem;
+        border-radius: 15px;
+        .img_box {
+          width: 1.5rem;
+          height: 1.6rem;
+          background-color: white;
+          border-radius: 0.15rem;
           margin-top: 0.15rem;
-          font-size:0.35rem;
-          padding-bottom:0.15rem;
-          .shopcount {
-            position: relative;
-            left: 200px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+          // background-color: skyblue;
+        }
+        .text_box {
+          margin-left: 0.2rem;
+          .name {
+            color: #333;
+            font-size: 0.35rem;
+            line-height: 0.36rem;
+          }
+          .sevenDay {
+            color: red;
+            // margin-top: -0.1rem;
+          }
+          .price {
+            margin-top: 0.15rem;
+            font-size: 0.35rem;
+            padding-bottom: 0.15rem;
+            .shopcount {
+              position: relative;
+              left: 200px;
+            }
           }
         }
       }
     }
   }
- }
 }
 </style>

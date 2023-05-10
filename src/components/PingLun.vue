@@ -195,7 +195,7 @@ export default {
         }
       }
       .open {
-        max-height: 1.56rem;
+        max-height: 1.86rem;
         span {
           font-size: 0.38rem;
           line-height: 0.42rem;

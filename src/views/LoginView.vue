@@ -302,6 +302,7 @@ export default {
           let id = Math.ceil(Math.random() * 9);
           number += str[id];
         }
+        // 取0-5 索引号的数值
         let mycode = number.slice(0, 6);
         that.mywd = mycode;
         // console.log("随机数：",mycode);

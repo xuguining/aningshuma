@@ -21,21 +21,21 @@
           ></path>
         </svg>
       </div>
-
+<!-- 商品详情 -->
       <div
         :class="['productdetail_imfo', { active: activeTab === 'info' }]"
         @click="goinfo"
       >
         商品详情
       </div>
-
+<!-- 用户评价 -->
       <div
         :class="['productdetail_imfo', { active: activeTab === 'user' }]"
         @click="gouser"
       >
         用户评价
       </div>
-
+<!-- 参数与包装 -->
       <div
         :class="['productdetail_imfo', { active: activeTab === 'can' }]"
         @click="gocan"
@@ -172,7 +172,9 @@
     <div class="footer">
       <van-goods-action>
         <van-goods-action-icon icon="chat-o" text="客服" />
+        <!-- 购物车有数据时显示 -->
         <van-goods-action-icon icon="cart-o" text="购物车" @click="goShopCar" :badge="dataLength" v-show="!showIcon"/>
+          <!-- 购物车没有数据时显示 -->
         <van-goods-action-icon icon="cart-o" text="购物车" @click="goShopCar" v-show="showIcon"/>
         <van-goods-action-icon icon="shop-o" text="店铺" />
         <van-goods-action-button type="warning" text="加入购物车" @click="showPopup"/>
@@ -455,11 +457,12 @@ export default {
       // let local = JSON.parse(localStorage.getItem("shopobj-data")) || [];
       let local = JSON.parse(localStorage.getItem("shopobj-data"));
       // let flag = 0;
-      // console.log("czy1",local.length);
+      // console.log("czy1",local);
       for (let i = 0; i < local.length; i++) {
         if (local[i].ids === ids) {
           if (local[i].colors === colors) {
             if (local[i].peizhi === peizhi) {
+              // 判断是否统一配置 数量相加
               local[i].munber += munber;
               localStorage.setItem("shopobj-data", JSON.stringify(local));
               // this.dataLength=JSON.parse(localStorage.getItem("shopobj-data")).length
@@ -609,6 +612,7 @@ export default {
       .then((res) => {
         // console.log("czy6969696699999999",res.data);
         this.list = res.data;
+        console.log('this.list',this.list);
         // console.log("czyyyyyyyyyyyycc",this.list);
         this.showVideo =this.list.listVideoMaps.display_video;
         // console.log("czy8888888888888888",this.showVideo);

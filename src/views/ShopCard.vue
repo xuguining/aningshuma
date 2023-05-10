@@ -40,13 +40,9 @@
     <div class="my_shop" v-show="isShowcard">
       <div class="shop_content" v-for="(item, index) in list" :key="index">
         <!-- 多选框 -->
-        <input
-          type="checkbox"
-          v-model="item.ischeck"
-          @change="radiocheck"
-        />
+        <input type="checkbox" v-model="item.ischeck" @change="radiocheck" />
         <!-- 大图 -->
-        <div class="img_box"><img :src="item.img"/></div>
+        <div class="img_box"><img :src="item.img" /></div>
         <!-- 右边数据 -->
         <div class="shop_text">
           <div class="shop_name">
@@ -83,10 +79,19 @@
         <div v-if="showmsg" class="text">购物车还没有商品</div>
         <div v-if="!showmsg" class="text">登录即可查看购物车</div>
         <div v-if="showmsg" class="bottom_text" @click="goHome">去逛一逛</div>
-        <div v-if="!showmsg" class="bottom_text" @click="goLogin" style="background-image: linear-gradient(200deg,#72afd3,#e896fb);border: 1px solid #e896fb;">立即登录</div>
+        <div
+          v-if="!showmsg"
+          class="bottom_text"
+          @click="goLogin"
+          style="
+            background-image: linear-gradient(200deg, #72afd3, #e896fb);
+            border: 1px solid #e896fb;
+          "
+        >
+          立即登录
+        </div>
       </div>
     </div>
-
 
     <div v-show="isShowcard">
       <div v-show="!submit">
@@ -99,10 +104,13 @@
         </van-submit-bar>
       </div>
       <div v-show="submit" @click="deletes">
-        <van-submit-bar button-color="linear-gradient(200deg,#72afd3,#e896fb)" button-text="删除"> </van-submit-bar>
+        <van-submit-bar
+          button-color="linear-gradient(200deg,#72afd3,#e896fb)"
+          button-text="删除"
+        >
+        </van-submit-bar>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -111,9 +119,9 @@ import Vue from "vue";
 import { Stepper } from "vant";
 import { SubmitBar } from "vant";
 import { Checkbox, CheckboxGroup } from "vant";
-import {mapState } from "vuex";
+import { mapState } from "vuex";
 // const userNs = createNamespacedHelpers("user");
-import { Toast } from 'vant';
+import { Toast } from "vant";
 
 Vue.use(Toast);
 // Vue.use(mapState);
@@ -124,12 +132,12 @@ Vue.use(Stepper);
 export default {
   data() {
     return {
-      list: [],//本地存储的数组数据
+      list: [], //本地存储的数组数据
       // value: 1,
-      checked: true,//是否全选
+      checked: true, //是否全选
       // price: 222,
       submit: false, //是否处在编辑状态
-      lengths: 0,//本地存储的数组数据的长度
+      lengths: 0, //本地存储的数组数据的长度
       // showShop: true,
       // showmsg:true,
       // token:"",
@@ -142,37 +150,37 @@ export default {
       let toall = 0;
       for (let i = 0; i < this.list.length; i++) {
         if (this.list[i].ischeck) {
-          toall += this.list[i].price * this.list[i].munber; 
+          toall += this.list[i].price * this.list[i].munber;
         }
       }
       // console.log("toall",toall);
       return toall * 100;
     },
 
-// 先看看有没有登录，再看看有没有商品
+    // 先看看有没有登录，再看看有没有商品
     isShowcard() {
-        if(this.token){
+      if (this.token) {
         let mylength = localStorage.getItem(
-        "shopobj-data"
-        // ,JSON.stringify(this.list)
-      );
-      let listLength = JSON.parse(mylength);
-      if (listLength.length == 0) {
-        // console.log("listLength.length", listLength.length);
-        return false;
-      } else {
-        // console.log("listLength.length", listLength.length);
-        return true;
-      }
-        }else{
+          "shopobj-data"
+          // ,JSON.stringify(this.list)
+        );
+        let listLength = JSON.parse(mylength);
+        if (listLength.length == 0) {
+          // console.log("listLength.length", listLength.length);
           return false;
+        } else {
+          // console.log("listLength.length", listLength.length);
+          return true;
         }
+      } else {
+        return false;
+      }
     },
     // 看看有没有token
-    showmsg(){
-        return this.token?true:false;
+    showmsg() {
+      return this.token ? true : false;
     },
-    ...mapState("user",["token"]),
+    ...mapState("user", ["token"]),
   },
   //方法集合
   methods: {
@@ -187,7 +195,7 @@ export default {
       // this.$router.push({ name: "HomePage" });
     },
     // 这是点编辑的转化
-    editReturns(){
+    editReturns() {
       for (let i = 0; i < this.list.length; i++) {
         this.list[i].ischeck = false;
       }
@@ -195,18 +203,18 @@ export default {
     },
     // 完成的翻转
     returns() {
-    for (let i = 0; i < this.list.length; i++) {
+      for (let i = 0; i < this.list.length; i++) {
         this.list[i].ischeck = true;
       }
       this.submit = !this.submit;
-      this.radiocheck()
+      this.radiocheck();
     },
     // 删除购物车选项
     deletes() {
       this.list = this.list.filter((v) => v.ischeck == false);
       localStorage.setItem("shopobj-data", JSON.stringify(this.list));
       // 事件总线传个值 让底部导航栏徽标变一下
-      this.$bus.$emit('afterDelete',this.list)
+      this.$bus.$emit("afterDelete", this.list);
 
       // console.log("czy666",this.list);
     },
@@ -218,14 +226,13 @@ export default {
           let inname = this.list[i].myname;
           let img = this.list[i].img;
           let myprice = this.list[i].price;
-          let numbers = this.list[i].munber
-          let orderData = { inname, img, myprice,numbers };
+          let numbers = this.list[i].munber;
+          let orderData = { inname, img, myprice, numbers };
           // 把数据都拿到包装成对象 往提交数组一存
           let mylocal = JSON.parse(localStorage.getItem("order-data")) || [];
           mylocal.push(orderData);
           // console.log("czyyyyy",mylocal);
           localStorage.setItem("order-data", JSON.stringify(mylocal));
-
         }
         // else{
         //   let inname = "";
@@ -237,16 +244,15 @@ export default {
         //   mylocal.push(orderData);
         //   localStorage.setItem("order-data", JSON.stringify(mylocal));
         // }
-       
       }
       this.list = this.list.filter((v) => v.ischeck == false);
       localStorage.setItem("shopobj-data", JSON.stringify(this.list));
       // this.$router.push({ name: "SubmitOrder" });
-      if(localStorage.getItem("order-data")){
-          this.$router.push({ name: "SubmitOrder" });
-        }else{
-          Toast('请勾选需要结算的商品');
-        }
+      if (localStorage.getItem("order-data")) {
+        this.$router.push({ name: "SubmitOrder" });
+      } else {
+        Toast("请勾选需要结算的商品");
+      }
     },
     //   修改地址
     // onClickEditAddress() {},
@@ -270,17 +276,16 @@ export default {
     },
   },
   // 侦听一下list 一边马上覆盖一份
-  watch:{
-      list:{
-        deep:true,
-        handler(value){
-          localStorage.setItem("shopobj-data",JSON.stringify(value))
-          this.lengths=value.length;
-        }
-      }
+  watch: {
+    list: {
+      deep: true,
+      handler(value) {
+        localStorage.setItem("shopobj-data", JSON.stringify(value));
+        this.lengths = value.length;
+      },
+    },
   },
   created() {
-
     let shopdata = JSON.parse(localStorage.getItem("shopobj-data"));
     this.list = shopdata;
     // this.value = this.list.munber;
@@ -294,7 +299,7 @@ export default {
     // this.radiocheck()
     // console.log(this.checked)
 
-    this.AllSelect()
+    this.AllSelect();
   },
 };
 </script>
@@ -303,7 +308,7 @@ export default {
 .shop_card {
   padding: 0 0.3rem;
   .nav {
-    margin-top:15px;
+    margin-top: 15px;
     box-sizing: border-box;
     padding: 0 0.4rem;
     position: relative;
@@ -371,20 +376,20 @@ export default {
       border-radius: 2em;
       border: 1px solid greenyellow;
       color: #3d3d3d;
-      font-weight:500;
+      font-weight: 500;
       display: block;
       box-sizing: border-box;
       // min-width: 2.04rem;
       height: 0.8rem;
       width: 2.8rem;
-      margin-top:10px;
+      margin-top: 10px;
       padding: 0 0.12rem;
       font-size: 0.42rem;
       line-height: 0.72rem;
       text-align: center;
       margin-top: 0.5rem;
       margin-left: 0.5rem;
-      background-image: linear-gradient(200deg,#72afd3,#96fbc4);
+      background-image: linear-gradient(200deg, #72afd3, #96fbc4);
     }
   }
   .my_shop {
@@ -395,7 +400,7 @@ export default {
     justify-content: space-evenly;
     background-color: rgb(249, 246, 246);
     box-sizing: border-box;
-    
+
     .shop_content {
       display: flex;
       align-items: center;
@@ -404,7 +409,7 @@ export default {
       margin-bottom: 0.2rem;
       box-sizing: border-box;
       padding: 0.25rem 0.2rem;
-  
+
       .img_box {
         margin-left: 0.3rem;
         width: 1.68rem;
@@ -419,10 +424,10 @@ export default {
       }
       .shop_text {
         margin-left: 0.3rem;
-        padding-top:0.2rem;
+        padding-top: 0.2rem;
 
         .shop_name {
-          font-size:17px;
+          font-size: 17px;
           span {
             margin-left: 0.3rem;
           }
@@ -447,7 +452,7 @@ export default {
         }
       }
     }
-    .shop_content:last-child{
+    .shop_content:last-child {
       margin-bottom: 2rem;
     }
   }

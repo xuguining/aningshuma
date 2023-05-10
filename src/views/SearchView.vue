@@ -26,9 +26,13 @@
     <div class="search_body" v-if="isshow">
       <div class="search_body_title">热门推荐</div>
       <div class="search_hot">
-        <span v-for="(item, index) in serachdata" :key="index" @click="hotGo(item.title)">{{
-          item.title
-        }}</span>
+        <span
+          v-for="(item, index) in serachdata"
+          :key="index"
+          @click="hotGo(item.title)"
+        >
+          {{ item.title }}</span
+        >
       </div>
     </div>
     <!-- 搜索得到的内容 -->
@@ -43,15 +47,18 @@
           <div class="img_box"><img :src="item.url" /></div>
           <div class="name">{{ item.title }}</div>
           <div class="price">
-            <span>{{ item.priceInfo.prefix }}
-              {{ item.priceInfo.currencyTag }}</span>{{ item.price }}
+            <span
+              >{{ item.priceInfo.prefix }}
+              {{ item.priceInfo.currencyTag }}
+            </span>
+            {{ item.price }}
           </div>
           <!-- <div class="price">¥0</div> -->
         </div>
       </div>
-         <!-- <div  class="bottom">我是底线~~~</div> -->
-         <div  class="bottom">此处演示只含部分功能，其他功能需现场演示！</div>
-    </div>     
+      <!-- <div  class="bottom">我是底线~~~</div> -->
+      <div class="bottom">此处演示只含部分功能，其他功能需现场演示！</div>
+    </div>
   </div>
 </template>
 
@@ -65,30 +72,29 @@ Vue.use(Search);
 export default {
   data() {
     return {
-      value: "",//搜索框里的内容
-      hotdata: [],//初始时从后端拿的热门推荐数据
-      serachdata: [],//经过筛选后的热门推荐数据
+      value: "", //搜索框里的内容
+      hotdata: [], //初始时从后端拿的热门推荐数据
+      serachdata: [], //经过筛选后的热门推荐数据
       // mykey: "",
-      list: [],//接口返回的搜索到的内容
-      currentPage: 1,//请求后端数据时 带的页数
-      isshow: true,//是否出现热门推荐
-      keyword: '',//旧的搜索的内容 用来清空搜索出来的内容和初始化页数
+      list: [], //接口返回的搜索到的内容
+      currentPage: 1, //请求后端数据时 带的页数
+      isshow: true, //是否出现热门推荐
+      keyword: "", //旧的搜索的内容 用来清空搜索出来的内容和初始化页数
       // chuBottom:false
     };
   },
 
   methods: {
     // 点击热门按钮直接搜索指定内容
-    hotGo(id){
-      this.value=id;
-      this.onSearch()
+    hotGo(id) {
+      this.value = id;
+      this.onSearch();
     },
-    goback(){
-      this.$router.go(-1)
+    goback() {
+      this.$router.go(-1);
     },
     // 搜索
     onSearch() {
-
       // // console.log("来搜索拉");
       // if (this.keyword != this.value) {
       //   this.list = [];
@@ -117,9 +123,6 @@ export default {
       //     // console.log("搜索数据", this.list);
       //   });
       this.isshow = false;
-
-
-
     },
     // 触底加载
     evenscrool(e) {
@@ -129,7 +132,8 @@ export default {
       // console.log(e.srcElement.clientHeight);
       // console.log(e.srcElement.scrollHeight);
       if (
-        e.srcElement.scrollTop + e.srcElement.clientHeight >= e.srcElement.scrollHeight
+        e.srcElement.scrollTop + e.srcElement.clientHeight >=
+        e.srcElement.scrollHeight
       ) {
         this.currentPage += 1;
         this.onSearch();
@@ -161,9 +165,9 @@ export default {
   created() {
     this.$axios.get("hotData.json").then((res) => {
       this.hotdata = res.data;
-      // console.log("hotdata", this.hotdata);
+      console.log("hotdata", this.hotdata);
       this.hotdata.forEach((item, index) => {
-        if (index!= 0) {
+        if (index != 0) {
           this.serachdata.push(item);
         }
       });
@@ -222,7 +226,7 @@ export default {
       span {
         height: 0.92rem;
         background-color: #ff6e43;
-        margin-right:0.28rem;
+        margin-right: 0.28rem;
         margin-bottom: 0.16rem;
         padding: 0.04rem 0.2rem;
         font-weight: 400;
@@ -280,16 +284,15 @@ export default {
     }
   }
 }
-.bottom{
+.bottom {
   // margin-bottom: 50px;
   // position: absolute;
   // left: 0;
   height: 1rem;
-  color:rgb(180, 175, 175);
+  color: rgb(180, 175, 175);
   width: 100%;
   text-align: center;
   line-height: 1rem;
   font-size: 0.45rem;
-
 }
 </style>

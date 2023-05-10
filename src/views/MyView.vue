@@ -198,9 +198,9 @@
         <van-swipe-item v-for="(item, index) in switchlist" :key="index">
           <img :src="item.url" class="van-swipe-item-list" />
         </van-swipe-item>
-          <template #indicator>
-             <div class="custom-indicator"></div>
-          </template>
+        <template #indicator>
+          <div class="custom-indicator"></div>
+       </template>
       </van-swipe>
     </div>
     <!-- 工具栏 -->
@@ -215,8 +215,7 @@
           <div class="img_box"><img :src="item.url"/></div>
           <div class="text">{{ item.title }}</div>
         </div>
-        <div class="item">
-         </div>
+        <div class="item"></div>
       </div>
     </div>
     <!-- 版权 -->
@@ -443,6 +442,7 @@ export default {
         margin-top: 0.2rem;
         // margin-left: 0.6rem;
         width: 1.37rem;
+        //background-color: #f6f6;
 
         .img_box {
           width: 100%;

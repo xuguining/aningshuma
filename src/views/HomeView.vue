@@ -1,6 +1,6 @@
 <!-- 已修改 -->
 <template>
-<!-- 父路由 底部导航栏 -->
+  <!-- 父路由 底部导航栏 -->
   <div class="home">
     <div class="footer_nav">
       <van-tabbar
@@ -9,7 +9,7 @@
         :inactive-color="icon.inactive"
         route
       >
-        <van-tabbar-item  to="/homepage">
+        <van-tabbar-item to="/homepage">
           <span>首页</span>
           <template #icon="props">
             <svg
@@ -30,8 +30,8 @@
             </svg>
           </template>
         </van-tabbar-item>
-        <van-tabbar-item  to="/classcation">
-        <span>分类</span>
+        <van-tabbar-item to="/classcation">
+          <span>分类</span>
           <template #icon="props">
             <svg
               t="1652181816468"
@@ -52,7 +52,7 @@
           </template>
         </van-tabbar-item>
         <!-- 判断一下购物车小徽标是不是0 -->
-        <van-tabbar-item v-if="shopcarNum==0"   to="/shopcard" >
+        <van-tabbar-item v-if="shopcarNum == 0" to="/shopcard">
           <span>购物车</span>
           <template #icon="props">
             <svg
@@ -88,7 +88,7 @@
             </svg> </template
         ></van-tabbar-item>
         <!-- 购物车小徽标不是0时 -->
-        <van-tabbar-item v-else  to="/shopcard" :badge="shopcarNum">
+        <van-tabbar-item v-else to="/shopcard" :badge="shopcarNum">
           <span>购物车</span>
           <template #icon="props">
             <svg
@@ -152,64 +152,56 @@
 <script>
 import Vue from "vue";
 import { Tabbar, TabbarItem } from "vant";
-    // 试试这个模块辅助函数帮手
+// 试试这个模块辅助函数帮手
 // import { createNamespacedHelpers } from "vuex";
 // const userNs = createNamespacedHelpers("user");
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
 
-
 export default {
   name: "HomeView",
   data() {
     return {
-      active: 0,//vant默认选中
+      active: 0, //vant默认选中
       icon: {
-        active: "rgb(80,180,80)",//选择颜色
-        inactive: "#cdcdcd",//未选择颜色
+        active: "rgb(80,180,80)", //选择颜色
+        inactive: "#cdcdcd", //未选择颜色
       },
-      data:'',//shopobj-data的数据
-      shopcarNum:0,//徽标的数据
-    }
+      data: "", //shopobj-data的数据
+      shopcarNum: 0, //徽标的数据
+    };
   },
-  computed:{
+  computed: {
     // 展示一下购物车数量小徽标
-      // shopcarNum(){
-      //   let data=localStorage.getItem('shopobj-data');
-      //   return JSON.parse(data).length;
-      // }
-  // 尝试失败
-      // shopcarNum:{
-      //     get(){
-      //       return JSON.parse(this.data).length;
-      //     },
-      //     set(value){
-      //       console.log("czy11",value)
-      //       return JSON.parse(this.data).length;
-      //     }
-      // }
+    // shopcarNum(){
+    //   let data=localStorage.getItem('shopobj-data');
+    //   return JSON.parse(data).length;
+    // }
+    // 尝试失败
+    // shopcarNum:{
+    //     get(){
+    //       return JSON.parse(this.data).length;
+    //     },
+    //     set(value){
+    //       console.log("czy11",value)
+    //       return JSON.parse(this.data).length;
+    //     }
+    // }
   },
-  watch:{
-    data:{
-        // immediate:true,
-        deep:true,
-        handler(value){
-          //console.log('czyyyyyy',value);
-          // console.log('czyyyyyy',JSON.parse(value).length);
-          this.shopcarNum=JSON.parse(value).length;
-
-        }
+  watch: {
+    data: {
+      // immediate:true,
+      deep: true,
+      handler(value) {
+        this.shopcarNum = JSON.parse(value).length;
+      },
     },
-
-
   },
-  methods:{
-    // 全局事件总线回调 收个值来改徽标 
-    deleteNum(value){
-      // console.log("czy11",value);
-      this.data=JSON.stringify(value);
-      // console.log("czy22",this.data);
-    }
+  methods: {
+    // 全局事件总线回调 收个值来改徽标
+    deleteNum(value) {
+      this.data = JSON.stringify(value);
+    },
   },
   // computed: {
   //   ...userNs.mapState(["token"]),
@@ -233,19 +225,17 @@ export default {
   //   console.log("czy1",localStorage.getItem('shopobj-data'));
   // }
 
-//本来想着深度侦听一下data  但后面发现底部导航栏一直没被销毁 只是被子组件盖着了 
-//所以 created覆盖不了 等以后有时候用全局事件总线 处理一下这个购物车删除内容时的小徽标更新问题
-  created(){
-    this.data=localStorage.getItem('shopobj-data');
-    
-    // console.log("czy",this.data)
+  //本来想着深度侦听一下data  但后面发现底部导航栏一直没被销毁 只是被子组件盖着了
+  //所以 created覆盖不了 等以后有时候用全局事件总线 处理一下这个购物车删除内容时的小徽标更新问题
+  created() {
+    this.data = localStorage.getItem("shopobj-data");
   },
-  mounted(){
-    this.$bus.$on("afterDelete",this.deleteNum)
+  mounted() {
+    this.$bus.$on("afterDelete", this.deleteNum);
   },
-  beforeDestroy(){
-    this.$bus.$off("afterDelete")
-  }
+  beforeDestroy() {
+    this.$bus.$off("afterDelete");
+  },
 };
 </script>
 

@@ -81,7 +81,8 @@ export default {
           let address = content.addressDetail;
           let obj = {myname,tel,province,address}
           let adobj = JSON.parse(localStorage.getItem("address-data")) || []
-          adobj[this.$route.query.edit-1]=obj
+          adobj[this.$route.query.edit-1]=obj  
+          // adobj中在提交订单页被编辑的序号-1的数据就是被编辑的obj
           localStorage.setItem("address-data",JSON.stringify(adobj))
           this.$router.push({name:'SubmitOrder'}) 
         }else{
@@ -102,11 +103,15 @@ export default {
     // console.log(this.$route.query.edit==true)
     if(this.$route.query.edit){
       let addressobj=JSON.parse(localStorage.getItem("address-data"))
+      // console.log(addressobj);
       let addressdata=addressobj[this.$route.query.edit-1]
+       // addressdata是个数组 []里面是index
       // console.log(addressdata)
       // console.log(this.$refs.adInfo)
       this.$refs.adInfo.data={...addressdata}
+      // console.log("$refs.adInfo",this.$refs.adInfo.data);
        this.$refs.adInfo.data.name=addressdata.myname
+      //  console.log("$refs.adInfo.data.name",this.$refs.adInfo.data.name);
     }
   }
 };

@@ -1,6 +1,6 @@
 <!-- 已修改 -->
 <template>
-  <div class="class_caption" >
+  <div class="class_caption">
     <MyHead></MyHead>
     <div class="caption_content">
       <!-- 分类左边 -->
@@ -19,10 +19,10 @@
         <div class="nav_img">
           <img :src="topimg" />
         </div>
-        <div class="title">{{titles}}</div>
+        <div class="title">{{ titles }}</div>
         <div class="footer" v-for="(item, index) in footerdata" :key="index">
           <div class="footer_content" @click="gohppone(item)">
-            <div class="img_box"><img :src="item.mainImg"/></div>
+            <div class="img_box"><img :src="item.mainImg" /></div>
             <div class="footer_text">
               <div class="name">{{ item.spuName }}</div>
               <div class="center_text">{{ item.spuShortDesc }}</div>
@@ -40,64 +40,67 @@
 <script>
 import Vue from "vue";
 import { Sidebar, SidebarItem } from "vant";
-import MyHead from "@/components/MyHead.vue"
+import MyHead from "@/components/MyHead.vue";
 
 Vue.use(Sidebar);
 Vue.use(SidebarItem);
 export default {
-
-  components: {MyHead,},
+  components: { MyHead },
   data() {
     return {
-      leftdata: [],//左边数据
-      activeKey: 0,//默认选中0
+      leftdata: [], //左边数据
+      activeKey: 0, //默认选中0
       // rightdata: [],
-      mycode: "000024",//初始是左边第一个id 每次点击被当前id覆盖
-       footerdata: [],//右边底部数据
+      mycode: "000024", //初始是左边第一个id 每次点击被当前id覆盖
+      footerdata: [], //右边底部数据
       // urlimg: "",
-      topimg: "",//右边大图
-      titles:'',//右边标题
-      changedata:true,//由于部分后端接口无法利用 弄个状态控制一下左边点击每次有变化
+      topimg: "", //右边大图
+      titles: "", //右边标题
+      changedata: true, //由于部分后端接口无法利用 弄个状态控制一下左边点击每次有变化
     };
   },
 
   methods: {
     toggle(item) {
-      // 部分后端接口会强制重定向 为了能在网址上线 就配对这5个行的 别的都躲开 
-      if(item.categoryCode=='000024'||item.categoryCode=='000323'||item.categoryCode=='000035'||item.categoryCode=='000034'||item.categoryCode=='0003861'){
+      // 部分后端接口会强制重定向 为了能在网址上线 就配对这5个行的 别的都躲开
+      if (
+        item.categoryCode == "000024" ||
+        item.categoryCode == "000323" ||
+        item.categoryCode == "000035" ||
+        item.categoryCode == "000034" ||
+        item.categoryCode == "0003861"
+      ) {
         this.mycode = item.categoryCode;
-      }else{
+      } else {
         // 让后面那些接口有问题的点击时有变化
-        if(this.changedata){
-          this.mycode ='000024';
-          this.changedata=!this.changedata
-        }
-        else{
-          this.mycode ='000035';
-          this.changedata=!this.changedata
+        if (this.changedata) {
+          this.mycode = "000024";
+          this.changedata = !this.changedata;
+        } else {
+          this.mycode = "000035";
+          this.changedata = !this.changedata;
         }
       }
 
       // 如果我用cli的代理服务器解决跨域 我就用下面这个语句 不用if判断
       // this.mycode=item.categoryCode;
 
-
       // console.log("this.mycode", this.mycode);
       this.mytoggle();
       // 让后边回到顶部
-      this.$refs.gotop.scrollTop = 0
+      this.$refs.gotop.scrollTop = 0;
       // console.log('czy1',this.$refs.gotop);
     },
     // 跳转至详情页面
-     gohppone(item){
+    gohppone(item) {
       // console.log(item);
-      this.footerdata.forEach(elmemnt =>{
-        if(elmemnt.skuId === item.skuId){
+      this.footerdata.forEach((elmemnt) => {
+        if (elmemnt.skuId === item.skuId) {
           // 临时改一下
-          let id = 22484
-          this.$router.push({name:"ProductDetail",query:{id}})
+          let id = 22484;
+          this.$router.push({ name: "ProductDetail", query: { id } });
         }
-      })
+      });
     },
     // // 获取右边内容数据 代理服务器版
     // mytoggle() {
@@ -124,24 +127,23 @@ export default {
     //     });
     // },
 
-
     // 获取右边内容数据json版
     mytoggle() {
-            // console.log("this.mycode", this.mycode);
-      this.$axios
-        .get(`detail${this.mycode}.json`)
-        .then((res) => {
+      // console.log("this.mycode", this.mycode);
+      this.$axios.get(`detail${this.mycode}.json`).then((res) => {
         //   this.rightdata = res.data;
         // console.log("444444444",res);
-          this.footerdata = res.data[0].category.goods;
-          // console.log("333333",this.footerdata);
-          //   this.urlimg = rightdata
-          // console.log("rgiht", this.rightdata);
-          //  console.log("footerdata",this.footerdata);
-          // console.log(res);
-          this.topimg = res.data[0].category.ads[0].logoUrl;
-          this.titles = res.data[0].category.name
-        });
+        this.footerdata = res.data[0].category.goods;
+        // console.log("footerdata",this.footerdata);  // 右边的数据
+        //   this.urlimg = rightdata
+        // console.log("rgiht", this.rightdata);
+        //  console.log("footerdata",this.footerdata);
+        // console.log(res);
+        this.topimg = res.data[0].category.ads[0].logoUrl;
+        this.titles = res.data[0].category.name;
+        // console.log('topimg',this.topimg);  // 热门推荐上面的大图
+        // console.log('titles',this.titles); // 热门推荐
+      });
     },
   },
   created() {
@@ -159,14 +161,11 @@ export default {
     //     console.log("rgiht", this.rightdata);
     //   });
 
-  // json请求 左边数据
-    this.$axios
-      .get("classLeft.json")
-      .then((res) => {
-        this.leftdata = res.data;
-        // console.log("11111111111111",this.leftdata);
-      });
-   
+    // json请求 左边数据
+    this.$axios.get("classLeft.json").then((res) => {
+      this.leftdata = res.data;
+      // console.log("11111111111111",this.leftdata);
+    });
   },
 };
 </script>
@@ -177,23 +176,23 @@ export default {
 //     display: none;
 // }
 // 左边内容和右边内容滚动条消失
-.context_right::-webkit-scrollbar, 
-.van-sidebar::-webkit-scrollbar{
-    display: none;
+.context_right::-webkit-scrollbar,
+.van-sidebar::-webkit-scrollbar {
+  display: none;
 }
 .van-sidebar-item--select {
-    color: #bf2a2f;
-    font-weight: 600;
+  color: #bf2a2f;
+  font-weight: 600;
 }
 .class_caption {
   .caption_content {
     display: flex;
     // 给要分别滚动的大盒子加4个方向绝对定位 然后再分别各自溢出auto
-    position:absolute;
-    top:50px;
-    left:0;
-    right:0;
-    bottom:50px;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 50px;
     .context_right {
       box-sizing: border-box;
       padding: 0.3rem 0.6rem;

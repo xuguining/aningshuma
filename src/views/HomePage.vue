@@ -13,7 +13,7 @@
     </div>
     <!-- 横排五图片 -->
     <div class="cation">
-      <!-- 统一接入myarr的第6个商品 -->
+      <!-- 统一点击后接入myarr的第6个商品 -->
       <ul>
         <li v-for="(item, index) in cation" :key="index" @click="gohppone(myarr[5])">
           <div class="li_img"><img :src="item.url"/></div>
@@ -151,8 +151,8 @@ export default {
   methods: {
     // 跳转商品详情
     gohppone(item){
-      // console.log("11",item);
-      // console.log("22",this.myarr);
+      // console.log("11",item);  // 当前商品的数据
+      // console.log("22",this.myarr);  // myarr 6张大图数据
       this.myarr.forEach(elmemnt =>{
         if(elmemnt.id === item.id){
           let id = item.link
@@ -194,7 +194,9 @@ export default {
 
     // 请求今日必抢json数据
     this.$axios.get("mustbuy.json").then((res) => {
+      // console.log('res',res);  // mustbuy.json 里的12个数据
       this.myToday = res.data[1].productDetailss;
+      // console.log(res.data[1]);  // 今日必抢里的10个数据
     });
     // this.$axios.get("cn/oapi/goods/web/products/v15/040204").then((res) => {
     //   // console.log(res);
@@ -215,7 +217,7 @@ export default {
 
 
     this.$axios.get("myproduct.json").then((res) => {
-      // console.log("res",res);
+      // console.log("res",res);  // 首页的12个数据
       // this.intelligenceImg = res.data[3];
       // let intelligencebody = res.data[3].productDetailss;
       // intelligencebody.forEach((item, index) => {
